@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-conf
+  labels:
+    name: alertmanager-conf
+data:
+  alertmanager.yml: |-
+    route:
+      receiver: admin
+    receivers:
+    - name: admin
+      email_configs:
+      - to: 'orenbeworldwide@gmail.com'
+        from: 'orenbeworldwide@gmail.com'
+        smarthost: smtp.gmail.com:587
+        auth_username: 'orenbeworldwide@gmail.com'
+        auth_identity: 'orenbeworldwide@gmail.com'
+        auth_password: 'gfqerozueoqizrej'
