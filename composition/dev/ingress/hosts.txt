@@ -1,0 +1,11 @@
+127.0.0.1       homelab.com
+127.0.0.1       grafana.homelab.com
+127.0.0.1       prometheus.homelab.com
+127.0.0.1       thanos.homelab.com
+127.0.0.1       alertmanager.homelab.com
+127.0.0.1       kibana.homelab.com
+127.0.0.1       argocd.homelab.com
+127.0.0.1       jenkins.homelab.com
+127.0.0.1       rancher.homelab.com
+127.0.0.1       dashboard.homelab.com
+127.0.0.1       vault.homelab.com

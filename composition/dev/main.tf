@@ -1,21 +1,26 @@
-
-
-# module "network" {
-#   source = "../../infrastructure/network"
+# module "platform" {
+#   source = "../../infrastructure/platform"
 # }
 
-# module "monitoring" {
-#   source = "../../infrastructure/monitoring"
-# }
+module "networking" {
+  source = "../../infrastructure/networking"
 
-module "cd" {
-  source = "../../infrastructure/cd"
+  enable_networking_nginx_ingress_controller = true
+  enable_networking_cert_manager = true
 }
 
-# module "ingress" { 
-#   source = "../../resources/toolchain/nginx-ingress-controller"
+# module "security" {
+#   source = "../../infrastructure/security"
 # }
 
-# module "logging" {
-#   source = "../../infrastructure/logging"
-# }
+module "cicd" {
+  source = "../../infrastructure/cicd"
+
+  enable_cicd_argocd = true
+}
+
+module "observability" {
+  source = "../../infrastructure/observability"
+
+  enable_observability_kube_prometheus_stack = true
+}
