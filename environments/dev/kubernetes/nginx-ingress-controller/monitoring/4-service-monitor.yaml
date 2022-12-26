@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels: # must match the Prometheus instance label
+    components: "addons" 
+  name: ingress-nginx-controller 
+  namespace: ingress-nginx
+spec:
+  endpoints:
+  - honorLabels: true
+    port: http
+  selector:
+    matchLabels: # must match the target application service label
+      app.kubernetes.io/component: controller
+      app.kubernetes.io/instance: ingress-nginx
+  namespaceSelector:
+    matchNames:
+      - ingress-nginx

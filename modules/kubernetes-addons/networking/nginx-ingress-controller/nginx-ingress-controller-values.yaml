@@ -1,0 +1,13 @@
+prometheus:
+  create: true
+  port: 9113
+  scheme: http
+  # secret: sameple-tls
+
+controller:
+  enableLatencyMetrics: true
+  config:
+    compute-full-forwarded-for: "true"
+    use-forwarded-headers: "true"
+    proxy-body-size: "0"
+  ingressClass: nginx # Different names for each Ingress

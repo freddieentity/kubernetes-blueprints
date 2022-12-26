@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  name: ingress-kibana
+  namespace: logging
+spec:
+  # tls:
+  # - hosts:
+  #   - homelab.com
+  #   secretName: example-app-tls
+  rules:
+  - host: kibana.homelab.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: kibana
+            port: 
+              number: 5601
