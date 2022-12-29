@@ -1,8 +1,3 @@
-terraform {
-  source = "../modules/kubernetes-addons"
-}
-
-
 remote_state {
   backend = "s3"
   generate = {
@@ -18,21 +13,6 @@ remote_state {
     // dynamodb_table = "my-lock-table"
   }
 }
-
-// extra_arguments "custom_vars" {
-//   commands = [
-//     "apply",
-//     "plan",
-//     "import",
-//     "push",
-//     "refresh"
-//   ]
-//   // # With the get_terragrunt_dir() function, you can use relative paths!
-//   // // arguments = [
-//   // //     "-var-file=${get_terragrunt_dir()}/../common.tfvars",
-//   // //     "-var-file=example.tfvars"
-//   // // ]
-// }
 
 generate "provider" {
   path = "provider.tf"
@@ -52,11 +32,13 @@ provider "helm" {
     # host                   = var.kubernetes_cluster_endpoint
     # cluster_ca_certificate = base64decode(var.kubernetes_kube_config)
     config_path = pathexpand(var.kind_cluster_config_path)
+    config_context = var.kind_cluster_context
   }
 }
 
 provider "kubernetes" {
   config_path = pathexpand(var.kind_cluster_config_path)
+  config_context = var.kind_cluster_context
 }
 
 provider "aws" {
@@ -65,3 +47,17 @@ provider "aws" {
 EOF
 }
 
+// extra_arguments "custom_vars" {
+//   commands = [
+//     "apply",
+//     "plan",
+//     "import",
+//     "push",
+//     "refresh"
+//   ]
+//   // # With the get_terragrunt_dir() function, you can use relative paths!
+//   // // arguments = [
+//   // //     "-var-file=${get_terragrunt_dir()}/../common.tfvars",
+//   // //     "-var-file=example.tfvars"
+//   // // ]
+// }

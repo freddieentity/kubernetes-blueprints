@@ -4,8 +4,7 @@
 ![High-level architectural diagram](docs/images/high-level-architecture.png)
 
 ## Code Structure
-![Code Structure](docs/images/composition.png)
 
-* The composition component refers to environment folder
-* The infrastructure component refers to modules folder
-* The resources component are used as Terraform "resources" within the modules folder.
+* Terragrunt folder holds the environment configurations and generate environment specific config base on the .hcl files. .hcl in each environment section will pass its own values to the root .hcl file
+* Modules folder holds all the Terraform modules
+* Examples folder holds different the usages of the module in the repository
