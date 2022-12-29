@@ -1,31 +1,79 @@
-resource "helm_release" "kibana" {
-  name       = "kibana"
-  repository = "https://helm.elastic.co"
-  chart      = "kibana"
-  version    = "8.5.1"
-  wait = false
-  timeout   = "1200"
-
-  create_namespace = true
-  namespace        = var.namespace
-
-#   values = [file(".yaml")]
+resource "kubernetes_manifest" "deployment_logging_kibana" {
+  manifest = {
+    apiVersion = "apps/v1"
+    kind = "Deployment"
+    metadata = {
+      labels = {
+        app = "kibana"
+      }
+      name = "kibana"
+      namespace = "logging"
+    }
+    spec = {
+      replicas = 1
+      selector = {
+        matchLabels = {
+          app = "kibana"
+        }
+      }
+      template = {
+        metadata = {
+          labels = {
+            app = "kibana"
+          }
+        }
+        spec = {
+          containers = [
+            {
+              env = [
+                {
+                  name = "ELASTICSEARCH_URL"
+                  value = "http://elasticsearch:9200"
+                },
+                {
+                  name = "ELASTICSEARCH_HOSTS"
+                  value = "http://elasticsearch:9200"
+                },
+              ]
+              image = "kibana:7.9.1"
+              imagePullPolicy = "IfNotPresent"
+              name = "kibana"
+              ports = [
+                {
+                  containerPort = 5601
+                },
+              ]
+            },
+          ]
+        }
+      }
+    }
+  }
 }
 
-# resource "null_resource" "wait_for_kibana" {
-#   triggers = {
-#     key = uuid()
-#   }
-
-#   provisioner "local-exec" {
-#     command = <<EOF
-#       printf "\nWaiting for the Kibana...\n"
-#       kubectl wait --namespace ${var.namespace} \
-#         --for=condition=ready pod \
-#         --selector=app.kubernetes.io/component=controller \
-#         --timeout=90s
-#     EOF
-#   }
-
-#   depends_on = [helm_release.kibana]
-# }
+resource "kubernetes_manifest" "service_kibana" {
+  manifest = {
+    apiVersion = "v1"
+    kind = "Service"
+    metadata = {
+      labels = {
+        app = "kibana"
+      }
+      name = "kibana"
+    }
+    spec = {
+      ports = [
+        {
+          name = "http"
+          port = 5601
+          protocol = "TCP"
+          targetPort = 5601
+        },
+      ]
+      selector = {
+        app = "kibana"
+      }
+      type = "ClusterIP"
+    }
+  }
+}

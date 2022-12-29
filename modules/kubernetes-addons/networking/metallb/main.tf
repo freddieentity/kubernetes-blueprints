@@ -8,7 +8,7 @@ resource "helm_release" "metallb" {
 
   namespace        = var.namespace
 
-#   values = [file("metallb-values.yaml")]
+  values = var.values
 }
 
 resource "null_resource" "wait_for_metallb" {

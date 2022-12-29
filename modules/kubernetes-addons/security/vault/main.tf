@@ -9,7 +9,7 @@ resource "helm_release" "vault" {
 
   namespace        = var.namespace
 
-  values = ["${file("${path.module}/vault-values.yaml")}"]
+  values = var.values
 }
 
 # resource "null_resource" "wait_for_vault" {

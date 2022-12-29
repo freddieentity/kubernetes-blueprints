@@ -1,12 +1,28 @@
+resource "kubernetes_namespace" "monitoring" {
+  metadata {
+    name = var.namespace
+
+    # annotations = {
+    #   name = "example-annotation"
+    # }
+
+    labels = {
+      monitoring = "prometheus"
+    }
+  }
+}
+
 resource "helm_release" "prometheus" {
   name       = "prom"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
   version    = "41.7.0"
-  namespace = var.namespace
-  create_namespace = true
+  namespace =   var.namespace
+
   timeout   = "1200"
-  values = ["${file("${path.module}/kube-prometheus-stack-values.yaml")}"]
+  values = var.values
+
+  depends_on = [kubernetes_namespace.monitoring]
 }
 
 resource "null_resource" "wait_for_prometheus" {

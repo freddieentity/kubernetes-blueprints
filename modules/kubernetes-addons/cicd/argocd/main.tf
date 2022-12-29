@@ -2,13 +2,13 @@ resource "helm_release" "argocd" {
   name       = "argocd"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
-  version    = "4.5.8"
+  version    = "5.16.0"
   namespace = "argocd"
   create_namespace = true
   wait = false
   timeout   = "1200"
 
-  values = ["${file("${path.module}/argocd-values.yaml")}"]
+  values = var.values
 }
 
 resource "null_resource" "wait_for_argocd" {

@@ -1,3 +1,17 @@
+resource "kubernetes_namespace" "monitoring" {
+  metadata {
+    name = var.namespace
+
+    # annotations = {
+    #   name = "example-annotation"
+    # }
+
+    labels = {
+      monitoring = "prometheus"
+    }
+  }
+}
+
 resource "helm_release" "kubernetes_dashboard" {
   name       = "kubernetes-dashboard"
   repository = "https://kubernetes.github.io/dashboard/"

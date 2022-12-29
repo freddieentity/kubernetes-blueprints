@@ -14,7 +14,7 @@ resource "helm_release" "cert_manager" {
   #   value = false
   # }
   
-  values = ["${file("${path.module}/cert-manager-values.yaml")}"]
+  values = var.values
 }
 
 resource "null_resource" "wait_for_cert_manager" {

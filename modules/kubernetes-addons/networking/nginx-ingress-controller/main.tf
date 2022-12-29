@@ -9,7 +9,7 @@ resource "helm_release" "ingress_nginx" {
   namespace        = "ingress-nginx"
   create_namespace = true
 
-  values = ["${file("${path.module}/nginx-ingress-controller-values.yaml")}"]
+  values = var.values
 }
 
 resource "null_resource" "wait_for_ingress_nginx" {
