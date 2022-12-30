@@ -42,7 +42,12 @@ provider "kubernetes" {
 }
 
 provider "aws" {
-  region = var.region
+  region = var.aws_region
+  profile = var.aws_profile
+
+  assume_role {
+    role_arn = var.aws_destination_account_assume_role_arn
+  }
 }
 EOF
 }

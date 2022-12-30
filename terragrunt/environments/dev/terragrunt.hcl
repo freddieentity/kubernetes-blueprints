@@ -11,7 +11,15 @@ terraform {
     // }
 }
 
-locals { common = read_terragrunt_config(find_in_parent_folders("common.hcl")) }
+// data "aws_secretsmanager_secret_version" "labcreds" {
+//   secret_id = "labcreds"
+// }
+
+locals { 
+    common = read_terragrunt_config(find_in_parent_folders("common.hcl")) 
+
+    // labcreds = jsondecode(data.aws_secretsmanager_secret_version.labcreds.secret_string)
+}
 # local.common.locals.tags
 
 inputs = {
@@ -24,10 +32,10 @@ inputs = {
 
   # NETWORKING
   networking_nginx_ingress_controller = { enable = true, values = ["/values/nginx-ingress-controller-values.yaml"]}
-  networking_cert_manager = { enable = true, values = ["/values/cert-manager-values.yaml"]}
+//   networking_cert_manager = { enable = true, values = ["/values/cert-manager-values.yaml"]}
 
   # OBSERVABILITY
-  observability_kube_prometheus_stack = { enable = true, values = ["/values/kube-prometheus-stack-values.yaml"]}
+//   observability_kube_prometheus_stack = { enable = true, values = ["/values/kube-prometheus-stack-values.yaml"]}
   # observability_elasticsearch = { enable = true, values = ["/values/loki-stack-values.yaml"]}
   # observability_kibana = { enable = true, values = ["/values/loki-stack-values.yaml"]}
   # observability_fluentd = { enable = true, values = ["/values/loki-stack-values.yaml"]}
