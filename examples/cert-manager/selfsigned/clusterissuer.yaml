@@ -1,0 +1,36 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+ name: base-isser
+ namespace: cert-manager
+spec:
+ selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+ name: ca-cert
+ namespace: cert-manager
+spec:
+ # name of the tls secret to store
+ # the generated certificate/key pair
+ secretName: homeca-secret
+ isCA: true
+ issuerRef:
+   # issuer created in step 1
+   name: base-isser
+   kind: Issuer
+ commonName: "prometheus.homelab.com"
+ dnsNames:
+ # one or more fully-qualified domain name
+ # can be defined here
+ - prometheus.homelab.com
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: homeca-clusterissuer
+  # namespace: homeca
+spec:
+  ca:
+    secretName: homeca-secret

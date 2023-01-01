@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    # cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+  name: ldap-ingress
+  namespace: ldap
+spec:
+  rules:
+  - host: ldap.homelab.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: phpldapadmin
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  # tls:
+  # - hosts:
+  #   - ldap.homelab.com
+  #   secretName: ldap-tls-certificate

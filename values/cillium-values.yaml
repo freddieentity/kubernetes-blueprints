@@ -1,0 +1,10 @@
+# cni:
+#   chainingMode: aws-cni
+# enableIPv4Masquerade: false
+# tunnel: disabled
+# endpointRoutes:
+#   enabled: true
+# l7Proxy: false
+# encryption:
+#   enabled: true
+#   type: wireguard

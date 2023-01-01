@@ -39,6 +39,22 @@ variable "networking_nginx_ingress_controller" {
   })
 }
 
+variable "networking_cillium" {
+  default = {enable = false, values = []}
+  type = object({
+    enable    = bool
+    values = list(any)
+  })
+}
+
+variable "networking_istio" {
+  default = {enable = false, values = []}
+  type = object({
+    enable    = bool
+    values = list(any)
+  })
+}
+
 variable "networking_cert_manager" {
   default = {enable = false, values = []}
   type = object({

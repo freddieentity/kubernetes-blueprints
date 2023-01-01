@@ -35,6 +35,20 @@ module "nginx_ingress_controller" {
   values = var.networking_nginx_ingress_controller.values
 }
 
+module "cillium" {
+  source = "./networking/cillium"
+
+  count = var.networking_cillium.enable ? 1 : 0
+  values = var.networking_cillium.values
+}
+
+module "istio" {
+  source = "./networking/istio"
+
+  count = var.networking_istio.enable ? 1 : 0
+  values = var.networking_istio.values
+}
+
 module "cert_manager" {
   source = "./networking/cert-manager"
 

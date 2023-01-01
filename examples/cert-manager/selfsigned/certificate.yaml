@@ -1,11 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: selfsigned-cert
-  namespace: cert-manager-test
+  name: prometheus-certificate
+  namespace: monitoring
 spec:
-  dnsNames:
-    - freddieentity.link
-  secretName: selfsigned-cert-tls
+  secretName: prometheus-tls-secret
   issuerRef:
-    name: test-selfsigned
+    name: homeca-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - prometheus.homelab.com

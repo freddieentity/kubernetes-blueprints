@@ -19,5 +19,6 @@ variable "kind_cluster_config_path" {
 }
 
 variable "kind_cluster_context" {
+  default = "kind-homelab"
   type= string
 }
