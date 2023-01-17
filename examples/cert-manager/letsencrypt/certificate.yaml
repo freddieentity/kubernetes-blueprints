@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: example-app
-  namespace: default
+  name: monitoring
+  namespace: monitoring
 spec:
   dnsNames:
-    - homelab.com
-  secretName: example-app-tls
+    - freddieentity.link
+  secretName: monitoring-tls
   issuerRef:
-    name: letsencrypt-cluster-issuer
+    name: letsencrypt-prod
     kind: ClusterIssuer

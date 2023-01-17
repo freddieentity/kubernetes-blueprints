@@ -8,10 +8,10 @@ metadata:
 spec:
   # tls:
   # - hosts:
-  #   - homelab.com
+  #   - 127.0.0.1.nip.io
   #   secretName: example-app-tls
   rules:
-  - host: kibana.homelab.com
+  - host: kibana.127.0.0.1.nip.io
     http:
       paths:
       - path: /

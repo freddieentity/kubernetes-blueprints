@@ -1,0 +1,23 @@
+gitea:
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      # cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: gitea.127.0.0.1.nip.io
+        paths:
+          - path: /
+            pathType: Prefix
+  gitea:
+    # admin:
+    #   existingSecret: gitea-admin-secret
+    config:
+      server:
+        LANDING_PAGE: explore
+        ROOT_URL: https://git.127.0.0.1.nip.io
+  persistence:
+    storageClass: longhorn
+  postgresql:
+    persistence:
+      storageClass: longhorn

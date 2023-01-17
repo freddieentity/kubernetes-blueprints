@@ -1,0 +1,35 @@
+# COMMON
+environment = "dev"
+project_id = "pj01"
+application = "mini"
+cost_center = "cc01"
+
+# AWS COMMON
+aws_region = "us-east-1"
+aws_profile = "default"
+aws_destination_account_assume_role_arn = "arn:aws:iam::158904540988:role/destination_assume_role"
+
+# PLATFORM
+kind_cluster_config_path = "~/.kube/config"
+kind_cluster_context = "kind-homelab"
+
+# CICD
+cicd_argocd = { enable = true, values = ["/values/argocd-values.yaml"]}
+cicd_argocd_apps = { enable = false, values = ["/values/argocd-apps-values.yaml"]}
+cicd_argo_rollouts = { enable = false, values = ["/values/argocd-rollouts-values.yaml"]}
+
+# NETWORKING
+networking_nginx_ingress_controller = { enable = true, values = ["/values/nginx-ingress-controller-values.yaml"]}
+networking_istio = { enable = false, values = ["/values/istio-values.yaml"]}
+networking_cillium = { enable = false, values = ["/values/cillium-values.yaml"]}
+networking_cert_manager = { enable = true, values = ["/values/cert-manager-values.yaml"]}
+
+# OBSERVABILITY
+observability_kube_prometheus_stack = { enable = true, values = ["/values/kube-prometheus-stack-values.yaml"]}
+observability_elasticsearch = { enable = false, values = ["/values/elasticsearch-values.yaml"]}
+observability_kibana = { enable = false, values = ["/values/kibana-values.yaml"]}
+observability_fluentd = { enable = false, values = ["/values/fluentd-values.yaml"]}
+observability_loki_stack = { enable = false, values = ["/values/loki-stack-values.yaml"]}
+
+# SECURITY
+security_vault = { enable = false, values = ["/values/vault-values.yaml"]}

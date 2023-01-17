@@ -1,0 +1,10 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: jaeger
+spec:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - jaeger.127.0.0.1.nip.io # fake DNS will eventually resolve to the IP in the DNS

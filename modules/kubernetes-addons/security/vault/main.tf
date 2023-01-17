@@ -1,6 +1,8 @@
 resource "helm_release" "vault" {
   name       = "vault"
-  repository = "https://helm.releases.hashicorp.com"
+  # repository = "https://kubernetes-charts.banzaicloud.com" # https://banzaicloud.com/docs/bank-vaults/operator/
+  # chart      = "vault-operator"
+  repository = "https://helm.releases.hashicorp.com" # https://banzaicloud.com/docs/bank-vaults/operator/
   chart      = "vault"
   version    = "0.23.0"
   wait = false
@@ -12,20 +14,20 @@ resource "helm_release" "vault" {
   values = var.values
 }
 
-# resource "null_resource" "wait_for_vault" {
-#   triggers = {
-#     key = uuid()
-#   }
+resource "null_resource" "wait_for_vault" {
+  triggers = {
+    key = uuid()
+  }
 
-#   provisioner "local-exec" {
-#     command = <<EOF
-#       printf "\nWaiting for Vault...\n"
-#       kubectl wait --namespace ${var.namespace} \
-#         --for=condition=ready pod \
-#         --selector=app.kubernetes.io/component=controller \
-#         --timeout=90s
-#     EOF
-#   }
+  provisioner "local-exec" {
+    command = <<EOF
+      printf "\nWaiting for Vault...\n"
+      kubectl wait --namespace ${var.namespace} \
+        --for=condition=ready pod \
+        --selector=app.kubernetes.io/name=vault-operator \
+        --timeout=90s
+    EOF
+  }
 
-#   depends_on = [helm_release.vault]
-# }
+  depends_on = [helm_release.vault]
+}

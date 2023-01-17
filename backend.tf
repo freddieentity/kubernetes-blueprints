@@ -1,7 +1,5 @@
-# terraform {
+terraform {
 #   backend "s3" {
-#     bucket = "freddieentity-remote-state"
-#     key    = "iac/dev"
-#     region = "us-east-1"
+#     # variables will be placed in the backend.hcl in each environment
 #   }
-# }
+}

@@ -13,13 +13,13 @@ resource "kubernetes_namespace" "monitoring" {
 }
 
 resource "helm_release" "prometheus" {
-  name       = "prom"
+  name       = "prometheus"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
   version    = "41.7.0"
   namespace =   var.namespace
 
-  timeout   = "1200"
+  timeout   = "1800"
   values = var.values
 
   depends_on = [kubernetes_namespace.monitoring]

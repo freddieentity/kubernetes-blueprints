@@ -8,10 +8,10 @@ metadata:
 spec:
   # tls:
   # - hosts:
-  #   - homelab.com
+  #   - 127.0.0.1.nip.io
   #   secretName: example-app-tls
   rules:
-  - host: prometheus.homelab.com
+  - host: prometheus.127.0.0.1.nip.io
     http:
       paths:
       - path: /
@@ -32,10 +32,10 @@ metadata:
 spec:
   # tls:
   # - hosts:
-  #   - homelab.com
+  #   - 127.0.0.1.nip.io
   #   secretName: example-app-tls
   rules:
-  - host: grafana.homelab.com
+  - host: grafana.127.0.0.1.nip.io
     http:
       paths:
       - path: /
@@ -56,10 +56,10 @@ metadata:
 spec:
   # tls:
   # - hosts:
-  #   - homelab.com
+  #   - 127.0.0.1.nip.io
   #   secretName: example-app-tls
   rules:
-  - host: alertmanager.homelab.com
+  - host: alertmanager.127.0.0.1.nip.io
     http:
       paths:
       - path: /

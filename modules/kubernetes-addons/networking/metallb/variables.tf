@@ -1,3 +1,8 @@
 variable "namespace" {
-  default = "metallb"
+  default = "metallb-system"
+}
+
+variable "values" {
+  default = []
+  type = list
 }

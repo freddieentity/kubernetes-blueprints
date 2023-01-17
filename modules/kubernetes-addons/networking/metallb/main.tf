@@ -7,7 +7,7 @@ resource "helm_release" "metallb" {
   timeout   = "1200"
 
   namespace        = var.namespace
-
+  create_namespace = true
   values = var.values
 }
 

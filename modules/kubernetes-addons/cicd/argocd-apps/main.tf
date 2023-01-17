@@ -1,5 +1,5 @@
 resource "helm_release" "argocd_apps" {
-  name       = "argocdapps"
+  name       = "argocd-apps"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argocd-apps"
   version    = "0.0.6"

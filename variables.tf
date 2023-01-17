@@ -1,24 +1,97 @@
+variable "environment" {
+  type = string
+}
+
+variable "project_id" {
+  type = string
+}
+
+variable "application" {
+  type = string
+}
+
+variable "cost_center" {
+  type = string
+}
+
 variable "aws_region" {
-  default = "us-east-1"
   type= string
 }
 
 variable "aws_profile" {
-  default = "default"
   type= string
 }
 
 variable "aws_destination_account_assume_role_arn" {
-  default = "arn:aws:iam::158904540988:role/destination_assume_role"
   type= string
 }
 
 variable "kind_cluster_config_path" {
-  default = "~/.kube/config"
   type= string
 }
 
 variable "kind_cluster_context" {
-  default = "kind-homelab"
   type= string
+}
+
+# CICD
+variable "cicd_argocd" {
+}
+
+variable "cicd_argocd_apps" {
+  
+}
+
+variable "cicd_argo_rollouts" {
+  
+}
+
+# NETWORKING
+variable "networking_nginx_ingress_controller" {
+}
+
+variable "networking_ambassador_ingress_controller" {
+  
+}
+
+variable "networking_istio" {
+  
+}
+
+variable "networking_cillium" {
+  
+}
+
+variable "networking_metallb" {
+  
+}
+
+variable "networking_cert_manager" {
+  
+}
+
+# OBSERVABILITY
+variable "observability_kube_prometheus_stack" {
+  
+}
+
+variable "observability_elasticsearch" {
+  
+}
+
+variable "observability_kibana" {
+  
+}
+
+variable "observability_fluentd" {
+  
+}
+
+variable "observability_loki_stack" {
+  
+}
+
+# SECURITY
+variable "security_vault" {
+  
 }

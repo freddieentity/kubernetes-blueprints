@@ -1,4 +1,5 @@
----
+```yaml
+# eksctl create cluster
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
@@ -17,4 +18,8 @@ managedNodeGroups:
   minSize: 1
   maxSize: 10
   volumeSize: 20
+```
 
+More:
+https://www.linkedin.com/pulse/eks-cluster-using-terraform-shishir-khandelwal/
+https://github.com/shishirkh/kubernetes-cluster-terraform-aws

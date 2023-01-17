@@ -6,33 +6,35 @@ configs:
     dex.config: |
       connectors:
       - type: ldap
-        name: slapd
-        id: ad
+        name: ldap.127.0.0.1.nip.io
+        id: ldap
         config:
           # Ldap server address
-          host: "slapd"
+          host: "slapd.ldap.svc.local"
           insecureNoSSL: true
           insecureSkipVerify: true
           # Variable name stores ldap bindDN in argocd-secret
-          bindDN: "cn=service,ou=Users,dc=acme,dc=local"
+          bindDN: "$dex.ldap.bindDN" 
+          # k -n argocd patch secrets argocd-secret --patch "{\"data\":{\"dex.ldap.bindDN\":\"$(echo cn=admin,dc=acme,dc=local | base64 -b0)\"}}"
           # Variable name stores ldap bind password in argocd-secret
-          bindPW: "changeit"
+          bindPW: "$dex.ldap.bindPW" 
+          # k -n argocd patch secrets argocd-secret --patch "{\"data\":{\"dex.ldap.bindPW\":\"$(echo changeit | base64 -b0)\"}}"
           usernamePrompt: Username
-          # Ldap user search attributes
-          userSearch:
-            baseDN: "ou=users,dc=acme,dc=local"
-            filter: ""
-            username: uid
-            idAttr: uid
-            emailAttr: mail
-            nameAttr: displayName
-          # Ldap group search attributes
-          groupSearch:
-            baseDN: "ou=groups,dc=acme,dc=local"
-            filter: "(objectClass=groupOfNames)"
-            userAttr: DN
-            groupAttr: member
-            nameAttr: cn     
+          # # Ldap user search attributes
+          # userSearch:
+          #   baseDN: "ou=Users,dc=acme,dc=local"
+          #   filter: "(objectClass=person)"
+          #   username: uid
+          #   idAttr: uid
+          #   emailAttr: mail
+          #   nameAttr: cn
+          # # Ldap group search attributes
+          # groupSearch:
+          #   baseDN: "ou=Groups,dc=acme,dc=local"
+          #   filter: "(objectClass=groupOfNames)"
+          #   userAttr: DN
+          #   groupAttr: member
+          #   nameAttr: cn     
 
 rbac:
   create: true
@@ -51,8 +53,8 @@ server:
     annotations:
       # cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
-      - argocd.homelab.com
-      # - &host argocd.homelab.com
+      - argocd.127.0.0.1.nip.io
+      # - &host argocd.127.0.0.1.nip.io
     paths:
       - /
     # tls:

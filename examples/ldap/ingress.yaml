@@ -8,7 +8,7 @@ metadata:
   namespace: ldap
 spec:
   rules:
-  - host: ldap.homelab.com
+  - host: ldap.127.0.0.1.nip.io
     http:
       paths:
       - backend:
@@ -20,5 +20,5 @@ spec:
         pathType: ImplementationSpecific
   # tls:
   # - hosts:
-  #   - ldap.homelab.com
+  #   - ldap.127.0.0.1.nip.io
   #   secretName: ldap-tls-certificate

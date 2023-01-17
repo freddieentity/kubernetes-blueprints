@@ -23,6 +23,14 @@ variable "cicd_argo_rollouts" {
   })
 }
 
+variable "cicd_gitea" {
+  default = {enable = false, values = []}
+  type = object({
+    enable    = bool
+    values = list(any)
+  })
+}
+
 variable "cicd_tekton" {
   default = {enable = false, values = []}
   type = object({
@@ -32,6 +40,14 @@ variable "cicd_tekton" {
 }
 # Networking
 variable "networking_nginx_ingress_controller" {
+  default = {enable = false, values = []}
+  type = object({
+    enable    = bool
+    values = list(any)
+  })
+}
+
+variable "networking_ambassador_ingress_controller" {
   default = {enable = false, values = []}
   type = object({
     enable    = bool
@@ -56,6 +72,14 @@ variable "networking_istio" {
 }
 
 variable "networking_cert_manager" {
+  default = {enable = false, values = []}
+  type = object({
+    enable    = bool
+    values = list(any)
+  })
+}
+
+variable "networking_metallb" {
   default = {enable = false, values = []}
   type = object({
     enable    = bool

@@ -11,9 +11,38 @@
 
 # Usage
 
+## Local Kubernetes Cluster for testing
+
+Configure kind nodes
+```yaml
+# kind.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+ - role: control-plane
+   image: kindest/node:v1.26.0
+ - role: worker
+   image: kindest/node:v1.26.0
+ - role: worker
+   image: kindest/node:v1.26.0
+```
+
+Work with cluster
+```sh
+# Create Kind clusters
+kind create cluster --name=<your cluster name> --config=kind.yaml
+# Destroy Kind cluster
+kind destroy cluster --name=<your cluster name>
+```
+
+After the cluster is ready, we bootstrap the whole infrastructure
+
 ```sh
 #Init the dependencies
-terraform init
+terraform init -backend-config=backend/dev.backend.hcl
+
+terraform plan -var-file=environments/dev.tfvars
+terraform apply -var-file=environments/dev.tfvars
 # Apply all addons 
 make up
 # Destroy all addons

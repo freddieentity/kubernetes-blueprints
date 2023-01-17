@@ -1,6 +1,6 @@
-configInline:
-  address-pools:
-    - name: default
-      protocol: layer2
-      addresses:
-        - 172.16.16.10-172.16.16.100
+# address-pools:
+#   - name: default
+#     protocol: layer2
+#     autoassign: true
+#     addresses:
+#       - 172.18.255.200-172.18.255.250

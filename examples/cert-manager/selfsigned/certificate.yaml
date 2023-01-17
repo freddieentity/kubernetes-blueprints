@@ -9,4 +9,4 @@ spec:
     name: homeca-clusterissuer
     kind: ClusterIssuer
   dnsNames:
-    - prometheus.homelab.com
+    - prometheus.127.0.0.1.nip.io

@@ -1,19 +1,36 @@
 # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
 ---
-grafana:
+grafana: # https://www.infracloud.io/blogs/tracing-grafana-tempo-jaeger/
   enabled: true
   adminPassword: password
   ingress:
     enabled: true
     ingressClassName: nginx
-    annotations: {}
+    annotations:
+      # cert-manager.io/cluster-issuer: letsencrypt-prod
     labels: {}
     hosts: 
-      - grafana.homelab.com
+      - grafana.127.0.0.1.nip.io
     paths: 
       - /
     # pathType: ImplementationSpecific
-  # additionalDataSources: []
+  # additionalDataSources:
+  # - name: loki
+  #   type: loki
+  #   uid: my-loki
+  #   access: proxy
+  #   orgId: 1
+  #   url: http://loki:3100
+  #   basicAuth: false
+  #   isDefault: false
+  #   version: 1
+  #   editable: true
+  # - name: jaeger
+  #   type: jaeger
+  #   uid: my-jaeger
+  #   access: browser
+  #   url: http://jaeger:16686
+  #   isDefault: false
   # - name: prometheus-sample
   #   access: proxy
   #   basicAuth: true
@@ -47,7 +64,7 @@ kubeStateMetrics:
   enabled: false
 nodeExporter:
   enabled: false
-prometheus:
+prometheus: # https://www.infracloud.io/blogs/prometheus-operator-helm-guide/
   enabled: true
   ingress:
     enabled: true
@@ -55,7 +72,7 @@ prometheus:
     annotations: {}
     labels: {}
     hosts: 
-      - prometheus.homelab.com
+      - prometheus.127.0.0.1.nip.io
     paths: 
       - /
     # pathType: ImplementationSpecific

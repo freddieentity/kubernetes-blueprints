@@ -1,0 +1,1 @@
+INGRESS_HOST=$(kubectl get svc/ingress-nginx-controller -n ingress-nginx -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')

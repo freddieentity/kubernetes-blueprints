@@ -20,6 +20,13 @@ module "argo_rollouts" {
   values = var.cicd_argo_rollouts.values
 }
 
+module "gitea" {
+  source = "./cicd/gitea"
+
+  count = var.cicd_gitea.enable ? 1 : 0
+  values = var.cicd_gitea.values
+}
+
 module "tekton" {
   source = "./cicd/tekton"
 
@@ -33,6 +40,13 @@ module "nginx_ingress_controller" {
 
   count = var.networking_nginx_ingress_controller.enable ? 1 : 0
   values = var.networking_nginx_ingress_controller.values
+}
+
+module "ambassador_ingress_controller" {
+  source = "./networking/nginx-ingress-controller"
+
+  count = var.networking_ambassador_ingress_controller.enable ? 1 : 0
+  values = var.networking_ambassador_ingress_controller.values
 }
 
 module "cillium" {
@@ -54,6 +68,13 @@ module "cert_manager" {
 
   count = var.networking_cert_manager.enable ? 1 : 0
   values = var.networking_cert_manager.values
+}
+
+module "metallb" {
+  source = "./networking/metallb"
+
+  count = var.networking_metallb.enable ? 1 : 0
+  values = var.networking_metallb.values
 }
 
 # Observability

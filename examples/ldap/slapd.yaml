@@ -17,7 +17,7 @@ spec:
         image: 0908887875/slapd:v1
         resources:
           limits:
-            memory: "128Mi"
+            memory: "512Mi"
             cpu: "500m"
         ports:
         - containerPort: 389

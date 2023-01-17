@@ -8,10 +8,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - prometheus.homelab.com
+    - prometheus.127.0.0.1.nip.io
     secretName: prometheus-tls-secret
   rules:
-  - host: prometheus.homelab.com
+  - host: prometheus.127.0.0.1.nip.io
     http:
       paths:
       - path: /
