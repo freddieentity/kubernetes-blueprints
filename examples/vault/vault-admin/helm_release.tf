@@ -9,7 +9,7 @@ resource "helm_release" "vault" {
   timeout   = "1200"
   create_namespace = true
 
-  namespace        = var.namespace
+  namespace        = "vault"
 
   values = var.values
 }
@@ -22,9 +22,9 @@ resource "null_resource" "wait_for_vault" {
   provisioner "local-exec" {
     command = <<EOF
       printf "\nWaiting for Vault...\n"
-      kubectl wait --namespace ${var.namespace} \
+      kubectl wait --namespace vault \
         --for=condition=ready pod \
-        --selector=app.kubernetes.io/name=vault-operator \
+        --selector=app.kubernetes.io/name=vault \
         --timeout=90s
     EOF
   }

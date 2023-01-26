@@ -10,3 +10,7 @@ mzgEaMeq1zr0ZJFvYiNopLmru2ZynRkMMvxTGJWmNUw3
 # Clean Up
 pgrep -f vault | xargs kill
 rm -r ./vault/data
+
+
+https://github.com/hashicorp/vault-guides
+https://github.com/hashicorp/learn-vault-codify

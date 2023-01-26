@@ -39,7 +39,7 @@ apply:
 
 destroy:
 	@echo "\n${GREEN} Environment($(ENV))${RESET} | ${BLUE} Terraform ${RED} Destroy ${RESET}\n"
-	terraform destroy -auto-approve
+	terraform destroy -var-file=environments/${ENV}/${ENV}.tfvars -auto-approve
 
 up:
 	@echo "\n${GREEN} Environment($(ENV))${RESET} | ${PURPLE} Terraform ${RESET} Apply\n"
