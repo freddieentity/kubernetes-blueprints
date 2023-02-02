@@ -1,0 +1,14 @@
+vault_address = "http://vault.127.0.0.1.nip.io"
+vault_token = "xxx"
+# AWS
+aws_access_key = "xxx"
+aws_secret_key = "xxx"
+aws_secret_engine_path_name = "aws"
+aws_secret_engine_role_name = "admin-ec2"
+# Azure
+# azure_subscription_id = "xxx"
+# azure_tenant_id = "xxx"
+# azure_client_id = "xxx"
+# azure_secret_key = "xxx"
+# azure_secret_engine_path_name = "azure"
+# azure_secret_engine_role_name = "admin-vm"

@@ -1,3 +1,8 @@
+variable "environment" {
+  type = string
+  default = "dev"
+}
+
 variable "project_id" {
   type = string
 }

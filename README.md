@@ -54,3 +54,10 @@ For local Kubernetes cluster (Kind) due to having no LoadBalancer implementation
 kubectl port-forward --address 0.0.0.0 svc/ingress-nginx-controller -n ingress-nginx 80
 kubectl port-forward --address 0.0.0.0 svc/ingress-nginx-controller -n ingress-nginx 443
 ```
+
+```sh
+# If K8S has a LoadBalancer implementation then the ingress host will be the following output
+INGRESS_HOST=(kubectl -n ingress-nginx get svc/ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+# If K8S is local and has no LoadBalancer implemenetation then the ingress host will be 
+INGRESS_HOST=https://127.0.0.1.nip.io/
+```

@@ -2,6 +2,7 @@ resource "azurerm_kubernetes_cluster" "main" {
   name                = "${local.name}-aks"
   location            = azurerm_resource_group.spoke_aks.location
   resource_group_name = azurerm_resource_group.spoke_aks.name
+  kubernetes_version = var.kubernetes_version
   dns_prefix          = "${local.name}-aks"
   #   node_resource_group = azurerm_resource_group.spoke_aks.name
 
@@ -34,6 +35,10 @@ resource "azurerm_kubernetes_cluster" "main" {
     log_analytics_workspace_id = azurerm_log_analytics_workspace.main.id
   }
 
+  # ingress_application_gateway { # Alternative for Ingress Nginx Controller
+  #   subnet_id = azurerm_subnet.spoke_aks.id
+  # }
+
   windows_profile {
     admin_username = var.windows_admin_username
     admin_password = var.windows_admin_password
@@ -53,7 +58,8 @@ resource "azurerm_kubernetes_cluster" "main" {
 
 
   tags = {
-    Environment = "Demo"
+    Environment = var.environment
+    Name = "${local.name}-aks"
   }
 }
 
@@ -71,4 +77,35 @@ resource "azurerm_kubernetes_cluster_node_pool" "main" {
   node_taints = [
     "kubernetes.azure.com/scalesetpriority=spot:NoSchedule"
   ]
+}
+
+# Log
+
+resource "azurerm_log_analytics_workspace" "main" {
+  name                = "${local.name}-insights"
+  location            = azurerm_resource_group.spoke_aks.location
+  resource_group_name = azurerm_resource_group.spoke_aks.name
+  retention_in_days   = 30
+}
+
+# ACR
+
+resource "azurerm_container_registry" "main" {
+  name                = "freddieentity"
+  resource_group_name = azurerm_resource_group.spoke_aks.name
+  location            = azurerm_resource_group.spoke_aks.location
+  sku                 = "Basic"
+  admin_enabled       = false
+  #   georeplications {
+  #     location                = "East US"
+  #     zone_redundancy_enabled = true
+  #     tags                    = {}
+  #   }
+}
+
+resource "azurerm_role_assignment" "main" {
+  principal_id                     = azurerm_kubernetes_cluster.main.kubelet_identity.0.object_id
+  role_definition_name             = "AcrPull"
+  scope                            = azurerm_container_registry.main.id 
+  skip_service_principal_aad_check = true
 }

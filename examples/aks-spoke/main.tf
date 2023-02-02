@@ -1,21 +1,17 @@
 module "aks_spoke" {
   source         = "../../modules/azure/aks-spoke"
-  project_id     = "aks"
-  application    = "entity"
-  azure_location = "eastus2"
+  project_id     = var.project_id
+  application    = var.application
+  azure_location = var.azure_location
 
-  resource_group_name = "myrg"
-  vnetcidr            = ["10.0.0.0/24"]
-  subnetcidr          = ["10.0.0.0/25"]
+  resource_group_name = var.resource_group_name
+  kubernetes_version = var.kubernetes_version
+  vnetcidr            = var.vnetcidr
+  subnetcidr          = var.subnetcidr
 
-  agent_pools = {
-    name            = "pool1"
-    count           = 1
-    vm_size         = "Standard_D2_v2"
-    os_disk_size_gb = "30"
-  }
+  agent_pools = var.agent_pools
 
-  ssh_public_key         = "~/.ssh/id_rsa.pub"
-  windows_admin_username = "azureuser"
-  windows_admin_password = "P@ssw0rd123456"
+  ssh_public_key         = var.ssh_public_key
+  windows_admin_username = var.windows_admin_username
+  windows_admin_password = var.windows_admin_password
 }

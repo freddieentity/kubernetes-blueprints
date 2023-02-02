@@ -25,7 +25,7 @@ resource "null_resource" "wait_for_vault" {
       kubectl wait --namespace ${var.namespace} \
         --for=condition=ready pod \
         --selector=app.kubernetes.io/name=vault \
-        --timeout=90s
+        --timeout=180s
     EOF
   }
 

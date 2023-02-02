@@ -1,0 +1,70 @@
+controller:
+  image: "jenkins/jenkins"
+  tagLabel: jdk11
+  imagePullPolicy: "Always"
+  jenkinsHome: "/var/jenkins_home"
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    apiVersion: "networking.k8s.io/v1"
+    labels: {}
+    annotations: {}
+    hostName: jenkins.127.0.0.1.nip.io
+    path: /
+    tls:
+    # - secretName: jenkins.cluster.local
+    #   hosts:
+    #     - jenkins.cluster.local
+
+  installPlugins:
+    - kubernetes:3734.v562b_b_a_627ea_c
+    - workflow-aggregator:590.v6a_d052e5a_a_b_5
+    - git:4.13.0
+    - configuration-as-code:1569.vb_72405b_80249
+
+  JCasC:
+    defaultConfig: true
+    configUrls: []
+    # - https://acme.org/jenkins.yaml
+    # Remote URL:s for configuration files.
+    configScripts: {}
+    #  welcome-message: |
+    #    jenkins:
+    #      systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
+    # Allows adding to the top-level security JCasC section. For legacy,  default the chart includes apiToken configurations
+    security:
+      apiToken:
+        creationOfLegacyTokenEnabled: false
+        tokenGenerationOnCreationEnabled: false
+        usageStatisticsEnabled: true
+    # Ignored if securityRealm is defined in controller.JCasC.configScripts
+    securityRealm: |-
+      local:
+        allowsSignup: false
+        enableCaptcha: false
+        users:
+        - id: "${chart-admin-username}"
+          name: "Jenkins Admin"
+          password: "${chart-admin-password}"
+    # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
+    authorizationStrategy: |-
+      loggedInUsersCanDoAnything:
+        allowAnonymousRead: false
+  # Optionally specify additional init-containers
+  customInitContainers: []
+  # - name: custom-init
+  #   image: "alpine:3.7"
+  #   imagePullPolicy: Always
+  #   command: [ "uname", "-a" ]
+
+persistence:
+  enabled: true
+  ## A manually managed Persistent Volume and Claim
+  ## Requires persistence.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  existingClaim:
+  storageClass:
+  annotations: {}
+  labels: {}
+  accessMode: "ReadWriteOnce"
+  size: "8Gi"

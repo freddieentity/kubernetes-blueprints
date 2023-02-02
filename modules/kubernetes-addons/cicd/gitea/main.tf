@@ -18,7 +18,7 @@ resource "null_resource" "wait_for_gitea" {
 
   provisioner "local-exec" {
     command = <<EOF
-      printf "\nWaiting for Argo CD...\n"
+      printf "\nWaiting for Gitea...\n"
       kubectl wait --namespace ${helm_release.gitea.namespace} \
         --for=condition=ready pod \
         --selector=app.kubernetes.io/instance \

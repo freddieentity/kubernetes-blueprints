@@ -12,11 +12,20 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v
+      uses: actions/checkout@v2
 
     - uses: hashicorp/setup-terraform@v2
       with:
         terraform_version: 1.3.6
+
+    # - name: Import Secrets
+    #   uses: hashicorp/vault-action@v2.0.1
+    #   with:
+    #     url: ${{ env.VAULT_ADDR }}
+    #     tlsSkipVerify: true
+    #     token: ${{ secrets.VAULT_TOKEN }}
+    #     secrets: |
+    #       secret/data/ci app_secret
 
     - name: Terraform Format
       run: terraform fmt

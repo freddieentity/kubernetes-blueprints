@@ -9,26 +9,26 @@ terraform {
 
 provider "helm" {
   kubernetes {
-    # host                   = data.aws_eks_cluster.main.endpoint
-    # cluster_ca_certificate = base64decode(data.aws_eks_cluster.main.certificate_authority.0.data)
-    # exec {
-    #   api_version = "client.authentication.k8s.io/v1alpha1"
-    #   args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.main.name]
-    #   command     = "aws"
-    # }
+    host                   = data.aws_eks_cluster.main.endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.main.certificate_authority.0.data)
+    exec {
+      api_version = "client.authentication.k8s.io/v1alpha1"
+      args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.main.name]
+      command     = "aws"
+    }
     config_path    = pathexpand(var.kind_cluster_config_path)
     config_context = var.kind_cluster_context
   }
 }
 
 provider "kubernetes" {
-  # host = data.aws_eks_cluster.main.endpoint
-  # cluster_ca_certificate = base64decode(data.aws_eks_cluster.main.certificate_authority.0.data)
-  # # client_certificate     = base64decode(var.client_certificate)
-  # # client_key             = base64decode(var.client_key)
-  
-  config_path    = pathexpand(var.kind_cluster_config_path)
-  config_context = var.kind_cluster_context
+  host = data.aws_eks_cluster.main.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.main.certificate_authority.0.data)
+  # client_certificate     = base64decode(var.client_certificate)
+  # client_key             = base64decode(var.client_key)
+
+  # config_path    = pathexpand(var.kind_cluster_config_path)
+  # config_context = var.kind_cluster_context
 }
 
 provider "aws" {

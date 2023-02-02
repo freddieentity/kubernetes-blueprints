@@ -1,3 +1,12 @@
+# MANAGEMENT
+variable "management_keda" {
+  default = {enable = false, values = []}
+  type = object({
+    enable    = bool
+    values = list(any)
+  })
+}
+
 # CICD
 variable "cicd_argocd" {
   default = {enable = false, values = []}
@@ -24,6 +33,14 @@ variable "cicd_argo_rollouts" {
 }
 
 variable "cicd_gitea" {
+  default = {enable = false, values = []}
+  type = object({
+    enable    = bool
+    values = list(any)
+  })
+}
+
+variable "cicd_jenkins" {
   default = {enable = false, values = []}
   type = object({
     enable    = bool

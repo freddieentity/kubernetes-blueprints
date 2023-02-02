@@ -1,9 +1,14 @@
+ui:
+  enabled: true
+  serviceType: ClusterIP
 server:
   ingress:
     enabled: true
     labels: {}
       # traffic: external
-    annotations: {}
+    annotations:
+      hajimari.io/appName: Gitea
+      hajimari.io/icon: git
     ingressClassName: nginx
     hosts:
       - host: vault.127.0.0.1.nip.io

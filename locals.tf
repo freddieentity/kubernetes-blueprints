@@ -1,8 +1,13 @@
 locals {
+  # MANAGEMENT
+  management_keda = { enable = var.management_keda["enable"], values = [for value in var.management_keda["values"] : "${file("${path.module}${value}")}"] }
+
   # CICD
   cicd_argocd        = { enable = var.cicd_argocd["enable"], values = [for value in var.cicd_argocd["values"] : "${file("${path.module}${value}")}"] }
   cicd_argocd_apps   = { enable = var.cicd_argocd_apps["enable"], values = [for value in var.cicd_argocd_apps["values"] : "${file("${path.module}${value}")}"] }
   cicd_argo_rollouts = { enable = var.cicd_argo_rollouts["enable"], values = [for value in var.cicd_argo_rollouts["values"] : "${file("${path.module}${value}")}"] }
+  cicd_jenkins       = { enable = var.cicd_jenkins["enable"], values = [for value in var.cicd_jenkins["values"] : "${file("${path.module}${value}")}"] }
+  cicd_gitea         = { enable = var.cicd_gitea["enable"], values = [for value in var.cicd_gitea["values"] : "${file("${path.module}${value}")}"] }
 
   # NETWORKING
   networking_nginx_ingress_controller      = { enable = var.networking_nginx_ingress_controller["enable"], values = [for value in var.networking_nginx_ingress_controller["values"] : "${file("${path.module}${value}")}"] }

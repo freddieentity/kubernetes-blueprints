@@ -1,3 +1,11 @@
+# MANAGEMENT
+module "keda" {
+  source = "./management/keda"
+
+  count = var.management_keda.enable ? 1 : 0
+  values = var.management_keda.values
+}
+
 # CICD
 module "argocd" {
   source = "./cicd/argocd"
@@ -25,6 +33,13 @@ module "gitea" {
 
   count = var.cicd_gitea.enable ? 1 : 0
   values = var.cicd_gitea.values
+}
+
+module "jenkins" {
+  source = "./cicd/jenkins"
+
+  count = var.cicd_jenkins.enable ? 1 : 0
+  values = var.cicd_jenkins.values
 }
 
 module "tekton" {

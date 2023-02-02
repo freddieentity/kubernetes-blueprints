@@ -1,5 +1,6 @@
-resource "aws_iam_role" "eks_cluster_role" {
-  name = "eks_cluster_role"
+# Master Node
+resource "aws_iam_role" "eks_cluster" {
+  name               = "eks_cluster"
   assume_role_policy = <<EOF
 {
  "Version": "2012-10-17",
@@ -18,20 +19,18 @@ EOF
 }
 
 data "aws_iam_policy" "eks_cluster_policy" {
-  arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy" 
+  arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
 resource "aws_iam_role_policy_attachment" "eks_cluster_attach_policy_to_role" {
-  role       = aws_iam_role.eks_cluster_role.name
+  role       = aws_iam_role.eks_cluster.name
   policy_arn = data.aws_iam_policy.eks_cluster_policy.arn
 }
-data "aws_subnet_ids" "cluster_subnet_ids" {
-  vpc_id = aws_vpc.cluster_vpc.id
-  depends_on = [ aws_subnet.cluster_subnet ]
-}
 
-resource "aws_iam_role" "eks_cluster_worker_role" {
-  name = "eks_cluster_worker_role"
+# Node Groups
+
+resource "aws_iam_role" "eks_cluster_worker" {
+  name               = "eks_cluster_worker"
   assume_role_policy = <<EOF
 {
  "Version": "2012-10-17",
@@ -59,6 +58,6 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_attach_policy_to_worker_r
     "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   ])
 
-  role       = aws_iam_role.eks_cluster_worker_role.name
+  role       = aws_iam_role.eks_cluster_worker.name
   policy_arn = each.value
 }

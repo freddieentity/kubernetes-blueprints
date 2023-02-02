@@ -1,12 +1,17 @@
 variable "name" { default = "dynamic-aws-creds-operator" }
 variable "region" { default = "us-east-1" }
-variable "path" { default = "../vault-admin-workspace/terraform.tfstate" }
+variable "path" { default = "../vault-config/terraform.tfstate" }
 variable "ttl" { default = "1" }
+variable "vault_address" { default = "http:/127.0.0.1:8200" }
 
 terraform {
   backend "local" {
     path = "terraform.tfstate"
   }
+}
+
+provider "vault" {
+  address = var.vault_address
 }
 
 data "terraform_remote_state" "admin" {
